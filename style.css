@@ -1,29 +1,45 @@
-body{
-    background-color: #ffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#game{
-    background-color: aqua;
-    padding: 1%;
-    margin: 1.5%;
-    max-width:fit-content;
-    max-height: fit-content;
-}
-#stat{
-    background-color: red;
-    color: black;
-    padding: 0.5%;
-    margin: 1%;
-
-}
-#text{
-    color: white;
-    background-color: black;
-    min-height: 50px;
-}
-button{
-    background-color: #ffff;
-    
-}
+body {
+    background-color: #0a0a23;
+  }
+  
+  #text {
+    background-color: #0a0a23;
+    color: #ffffff;
+    padding: 10px;
+  }
+  
+  #game {
+    max-width: 500px;
+    max-height: 400px;
+    background-color: #ffffff;
+    color: #ffffff;
+    margin: 30px auto 0px;
+    padding: 10px;
+  }
+  
+  #controls,
+  #stats {
+    border: 1px solid #0a0a23;
+    padding: 5px;
+    color: #0a0a23;
+  }
+  
+  #enemyStats {
+    display: none;
+    border: 1px solid #0a0a23;
+    padding: 5px;
+    color: #ffffff;
+    background-color: #c70d0d;
+  }
+  
+  .stat {
+    padding-right: 10px;
+  }
+  
+  button {
+    cursor: pointer;
+    color: #0a0a23;
+    background-color: #feac32;
+    background-image: linear-gradient(#fecc4c, #ffac33);
+    border: 3px solid #feac32;
+  }
