@@ -11,30 +11,53 @@ const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
 const text = document.querySelector("#text");
 const xpText = document.querySelector("#xpText");
-const healthText = document.querySelector("#hpText");
+const hpText = document.querySelector("#hpText");
 const goldText = document.querySelector("#goldText");
 const enemyStats = document.querySelector("#enemyStats");
-const enemyName = document.querySelector("#enemyrName");
-const enemyHealthText = document.querySelector("#enemyHealth");
+const enemyName = document.querySelector("#enemyName");
+const enemyhpText = document.querySelector("#enemyHealth");
+const weapons = [
+  { name: 'hand', power: 5 },
+  { name: 'flip knife', power: 30 },
+  { name: 'glock', power: 50 },
+  { name: 'AK 47', power: 100 }
+];
+const enemys = [
+  {
+    name: "Thug",
+    level: 2,
+    health: 15
+  },
+  {
+    name: "Brute",
+    level: 8,
+    health: 60
+  },
+  {
+    name: "Boss",
+    level: 20,
+    health: 300
+  }
+]
 
 const locations = [
     {
       name: "town square",
-      "button text": ["Go to store", "Go to cave", "Fight dragon"],
-      "button functions": [goStore, goCave, fightDragon],
-      text: "You are in the town square. You see a sign that says \"Store\"."
+      "button text": ["Go to Black Market", "Go to Street", "Fight Boss"],
+      "button functions": [goMarket, goStreet, fightBoss],
+      text: "You are in the town square. You see a sign that says \"Market\"."
     },
     {
-      name: "store",
+      name: "Market",
       "button text": ["Buy 10 health (10 gold)", "Buy weapon (30 gold)", "Go to town square"],
       "button functions": [buyHealth, buyWeapon, goTown],
-      text: "You enter the store."
+      text: "You enter the Market."
     },
     {
-      name: "cave",
-      "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
-      "button functions": [fightSlime, fightBeast, goTown],
-      text: "You enter the cave. You see some enemys."
+      name: "Street",
+      "button text": ["Fight Thug", "Fight off some Brutes", "Go to town square"],
+      "button functions": [fightThug, fightBrute, goTown],
+      text: "You enter the Street. You see some enemys."
     },
     {
       name: "fight",
@@ -58,7 +81,7 @@ const locations = [
       name: "win", 
       "button text": ["REPLAY?", "REPLAY?", "REPLAY?"], 
       "button functions": [restart, restart, restart], 
-      text: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;" 
+      text: "You defeat the Boss! YOU WIN THE GAME! &#x1F389;" 
     },
     {
       name: "easter egg",
@@ -68,9 +91,9 @@ const locations = [
     }
 ]
 // initialize buttons
-button1.onclick = goStore;
-button2.onclick = goCave;
-button3.onclick = fightDragon;
+button1.onclick = goMarket;
+button2.onclick = goStreet;
+button3.onclick = fightBoss;
 
 function update(location) {
   enemyStats.style.display = "none";
@@ -87,11 +110,11 @@ function goTown() {
   update(locations[0]);
 }
 
-function goStore() {
+function goMarket() {
   update(locations[1]);
 }
 
-function goCave() {
+function goStreet() {
   update(locations[2]);
 }
 
@@ -100,7 +123,7 @@ function buyHealth() {
     gold -= 10;
     health += 10;
     goldText.innerText = gold;
-    healthText.innerText = health;
+    hpText.innerText = health;
   } else {
     text.innerText = "You do not have enough gold to buy health.";
   }
@@ -138,17 +161,17 @@ function sellWeapon() {
   }
 }
 
-function fightSlime() {
+function fightThug() {
   fighting = 0;
   goFight();
 }
 
-function fightBeast() {
+function fightBrute() {
   fighting = 1;
   goFight();
 }
 
-function fightDragon() {
+function fightBoss() {
   fighting = 2;
   goFight();
 }
@@ -158,7 +181,7 @@ function goFight() {
   enemyHealth = enemys[fighting].health;
   enemyStats.style.display = "block";
   enemyName.innerText = enemys[fighting].name;
-  enemyHealthText.innerText = enemyHealth;
+  enemyhpText.innerText = enemyHealth;
 }
 
 function attack() {
@@ -170,8 +193,8 @@ function attack() {
   } else {
     text.innerText += " You miss.";
   }
-  healthText.innerText = health;
-  enemyHealthText.innerText = enemyHealth;
+  hpText.innerText = health;
+  enemyhpText.innerText = enemyHealth;
   if (health <= 0) {
     lose();
   } else if (enemyHealth <= 0) {
@@ -224,7 +247,7 @@ function restart() {
   currentWeapon = 0;
   inventory = ["stick"];
   goldText.innerText = gold;
-  healthText.innerText = health;
+  hpText.innerText = health;
   xpText.innerText = xp;
   goTown();
 }
@@ -257,7 +280,7 @@ function pick(guess) {
   } else {
     text.innerText += "Wrong! You lose 10 health!";
     health -= 10;
-    healthText.innerText = health;
+    hpText.innerText = health;
     if (health <= 0) {
       lose();
     }
