@@ -1,3 +1,4 @@
+// Declaring Initial Stats for player and enemy
 let xp = 0;
 let health = 100;
 let gold = 50;
@@ -5,7 +6,7 @@ let currentWeapon = 0;
 let fighting;
 let enemyHealth;
 let inventory = ["hand"];
-
+// Declaring Inital 
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
@@ -22,6 +23,7 @@ const weapons = [
   { name: 'glock', power: 50 },
   { name: 'AK 47', power: 100 }
 ];
+// Enemies Array
 const enemys = [
   {
     name: "Thug",
@@ -39,7 +41,7 @@ const enemys = [
     health: 300
   }
 ]
-
+//Location and Button Text/Function
 const locations = [
     {
       name: "town square",
@@ -94,7 +96,7 @@ const locations = [
 button1.onclick = goMarket;
 button2.onclick = goStreet;
 button3.onclick = fightBoss;
-
+// Update Location and buttons
 function update(location) {
   enemyStats.style.display = "none";
   button1.innerText = location["button text"][0];
@@ -105,7 +107,7 @@ function update(location) {
   button3.onclick = location["button functions"][2];
   text.innerHTML = location.text;
 }
-
+// Calling Update
 function goTown() {
   update(locations[0]);
 }
@@ -117,7 +119,7 @@ function goMarket() {
 function goStreet() {
   update(locations[2]);
 }
-
+// Buying Health
 function buyHealth() {
   if (gold >= 10) {
     gold -= 10;
@@ -128,7 +130,7 @@ function buyHealth() {
     text.innerText = "You do not have enough gold to buy health.";
   }
 }
-
+// Buying Weapon
 function buyWeapon() {
   if (currentWeapon < weapons.length - 1) {
     if (gold >= 30) {
@@ -148,7 +150,7 @@ function buyWeapon() {
     button2.onclick = sellWeapon;
   }
 }
-
+// Selling Weapon
 function sellWeapon() {
   if (inventory.length > 1) {
     gold += 15;
@@ -160,7 +162,15 @@ function sellWeapon() {
     text.innerText = "Don't sell your only weapon!";
   }
 }
-
+//Switching to Fighting Page Function
+function goFight() {
+  update(locations[3]);
+  enemyHealth = enemys[fighting].health;
+  enemyStats.style.display = "block";
+  enemyName.innerText = enemys[fighting].name;
+  enemyhpText.innerText = enemyHealth;
+}
+// Calling Fight
 function fightThug() {
   fighting = 0;
   goFight();
@@ -175,15 +185,7 @@ function fightBoss() {
   fighting = 2;
   goFight();
 }
-
-function goFight() {
-  update(locations[3]);
-  enemyHealth = enemys[fighting].health;
-  enemyStats.style.display = "block";
-  enemyName.innerText = enemys[fighting].name;
-  enemyhpText.innerText = enemyHealth;
-}
-
+// Function when player attack, Player send attack and receive damage
 function attack() {
   text.innerText = "The " + enemys[fighting].name + " attacks.";
   text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
